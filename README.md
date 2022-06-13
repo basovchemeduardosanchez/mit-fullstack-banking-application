@@ -53,3 +53,5 @@ mongo myproject --eval 'db.users.find().pretty()'
 - https://www.youtube.com/watch?v=_HdrLsyAdJg
 - https://stackoverflow.com/a/14713363/1714951
 - https://www.mongodb.com/docs/manual/tutorial/write-scripts-for-the-mongo-shell/#std-label-mongo-shell-scripting
+- https://expressjs.com/en/starter/static-files.html
+- https://expressjs.com/en/api.html#res.redirect
