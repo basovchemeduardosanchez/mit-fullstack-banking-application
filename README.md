@@ -24,3 +24,4 @@ npm run dev
 
 - https://create-react-app.dev/docs/proxying-api-requests-in-development
 - https://stackoverflow.com/a/61927857/1714951
+- https://reactjs.org/docs/context.html
