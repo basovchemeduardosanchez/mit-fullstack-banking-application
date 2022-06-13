@@ -1,6 +1,5 @@
 {
   "name": "mit-fullstack-banking-application",
-  "homepage": "https://basovchemeduardosanchez.github.io/mit-fullstack-banking-application",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://0.0.0.0:3001",
@@ -20,6 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start": "node index.js",
     "dev": "concurrently \"nodemon index.js\" \"BROWSER=none react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
