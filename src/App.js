@@ -30,20 +30,30 @@ function App() {
                     <NavBar/>
                     <div className="container" style={{padding: '20px'}}>
                         <Route path="/" exact component={Home} />
-                        <Route path="/CreateAccount/" component={CreateAccount} />
                         <UserContext.Consumer>
                             { value =>
-                                <Route path="/login/">
-                                    { value.currentUser ? <Redirect to="/" /> : <Login /> }
-                                </Route>
+                                <>
+                                    <Route path="/CreateAccount/">
+                                        { value.currentUser ? <Redirect to="/" /> : <CreateAccount /> }
+                                    </Route>
+                                    <Route path="/deposit/">
+                                        { value.currentUser ? <Deposit /> : <Redirect to="/login/" /> }
+                                    </Route>
+                                    <Route path="/withdraw/">
+                                        { value.currentUser ? <Withdraw /> : <Redirect to="/login/" /> }
+                                    </Route>
+                                    { /*<Route path="/balance/">
+                                        { value.currentUser ? <Balance /> : <Redirect to="/login/" /> }
+                                    </Route>*/ }
+                                    <Route path="/login/">
+                                        { value.currentUser ? <Redirect to="/" /> : <Login /> }
+                                    </Route>
+                                </>
                             }
                         </UserContext.Consumer>
                         <Route path="/logout/">
                             <Redirect to="/login/" />
                         </Route>
-                        <Route path="/deposit/" component={Deposit} />
-                        <Route path="/withdraw/" component={Withdraw} />
-                        { /* <Route path="/balance/" component={Balance} />*/ }
                         <Route path="/alldata/" component={AllData} />
                     </div>
                 </UserContext.Provider>
