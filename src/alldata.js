@@ -26,6 +26,7 @@ export function AllData(){
                                 <th>Email</th>
                                 <th>Name</th>
                                 <th>Password</th>
+                                <th>Balance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,7 @@ export function AllData(){
                                             <td>{pUser.email}</td>
                                             <td>{pUser.name}</td>
                                             <td>{pUser.password}</td>
+                                            <td>{pUser.balance}</td>
                                         </tr>
                                     );
                                 } )
