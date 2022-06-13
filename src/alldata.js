@@ -1,8 +1,18 @@
-import React, { useContext } from 'react';
-import { Card, UserContext } from './context';
+import React, { /*useContext,*/ useEffect, useState } from 'react';
+import { Card/*, UserContext*/ } from './context';
 
 export function AllData(){
-    const ctx = useContext(UserContext);
+    // const ctx = useContext(UserContext);
+
+    let [ data, setData ] = useState( [] );
+
+    useEffect( async () => {
+        setData(
+            await fetch( '/account/all' )
+                .then( pResponse => pResponse.json() )
+        );
+    }, [] );
+
     return (
         <>
             <h5>All Data in Store</h5>
@@ -20,7 +30,8 @@ export function AllData(){
                         </thead>
                         <tbody>
                             {
-                                ctx.users.map( ( pUser, pIndex ) => {
+                                //ctx.users.map( ( pUser, pIndex ) => {
+                                data.map( ( pUser, pIndex ) => {
                                     return (
                                         <tr key={pIndex}>
                                             <td>{pUser.email}</td>
