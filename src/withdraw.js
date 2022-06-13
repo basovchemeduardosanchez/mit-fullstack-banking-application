@@ -5,7 +5,6 @@ export function Withdraw(){
     const context = useContext(UserContext);
     const [ status, setStatus ] = useState( '' );
     const [ isWithdrawing, setIsWithdrawing ] = useState( false );
-    const [ balance, setBalance ] = useState( context.users[0].balance );
     const [ amount, setAmount ] = useState( '' );
     const [ isWithdrawEnabled, setIsWithdrawEnabled ] = useState( false );
 
@@ -14,6 +13,8 @@ export function Withdraw(){
     }
 
     function handleWithdraw(){
+        if ( !context.currentUser ) return;
+
         setStatus( '' );
         if ( !isAmountValid() ) {
             setStatus( 'Error: The amount is invalid' );
@@ -21,18 +22,31 @@ export function Withdraw(){
             return;
         }
 
-        const newBalance = balance - parseFloat( amount );
-        
+        const newBalance = context.currentUser.balance - parseFloat( amount );
+
         if ( newBalance < 0 ){
             setStatus( 'Error: The amount is greater than the current balance' );
             setTimeout(() => setStatus(''),3000);
             return;
         }
 
-        context.users[0].balance = newBalance;
-        setAmount( '' );
-        setBalance( newBalance );
-        setIsWithdrawing( true );
+        fetch( `/account/update/${ encodeURIComponent( context.currentUser.email ) }/${ encodeURIComponent( -1 * parseFloat( amount ) ) }` )
+            .then( response => {
+                if ( !response.ok ) {
+                    response.text()
+                        .then( text => {
+                            setStatus( 'Error: ' + text );
+                            setTimeout(() => setStatus(''),3000);
+                        } );
+                    return;
+                }
+                response.json()
+                    .then( json => {
+                        setAmount( '' );
+                        setIsWithdrawing( true );
+                        context.setCurrentUser( json.value );
+                    } );
+            } );
     }
     function handleAmountChange( pEvent ){
         const newAmount = pEvent.currentTarget.value;
@@ -49,13 +63,13 @@ export function Withdraw(){
                 body={ isWithdrawing ? (
                     <>
                         Success!<br/><br/>
-                        New balance: <span style={ { fontWeight: 'bold' } }>{balance}</span><br/><br/>
+                        New balance: <span style={ { fontWeight: 'bold' } }>{context.currentUser.balance}</span><br/><br/>
                         <button className='btn btn-primary' type='button' onClick={() => setIsWithdrawing( false )}>Withdraw again</button>
                     </>
                 ) : (
                     <>
                         <div className='form-group'>
-                            Balance: <span style={ { fontWeight: 'bold' } }>{balance}</span><br/>
+                            Balance: <span style={ { fontWeight: 'bold' } }>{context.currentUser.balance}</span><br/>
                         </div>
                         <div className='form-group'>
                             <label htmlFor="amount">Withdraw Amount</label>
