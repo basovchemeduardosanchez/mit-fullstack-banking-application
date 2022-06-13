@@ -2,17 +2,21 @@
 
 # Requirements
 
-- [ ] User can create an account with an email address and password input field. User receives a success message after creating an account
-- [ ] After creating an account, email address or username appears in the top right corner
-- [ ] User can log in to an account with an email address/password or OAuth
-- [ ] User can log out of an account
-- [ ] User can deposit money
-- [ ] Total balance updates according to deposit amount
-- [ ] User can withdraw money
-- [ ] Total balance updates according to withdrawal amount
-- [ ] The total balance amount and any other user input persists through different user sessions
-- [ ] Logging out of the application does not reset the user data
-- [ ] A screenshot showing a data representation of user information and account balance is uploaded
+- [X] User can create an account with an email address and password input field. User receives a success message after creating an account
+- [X] After creating an account, email address or username appears in the top right corner
+- [X] User can log in to an account with an email address/password or OAuth
+- [X] User can log out of an account
+- [X] User can deposit money
+- [X] Total balance updates according to deposit amount
+- [X] User can withdraw money
+- [X] Total balance updates according to withdrawal amount
+- [X] The total balance amount and any other user input persists through different user sessions
+- [X] Logging out of the application does not reset the user data
+- [X] A screenshot showing a data representation of user information and account balance is uploaded
+
+# Data Representation
+
+![Data Representation](./images/data-representation.png)
 
 # Contributing
 
@@ -34,6 +38,12 @@
 npm run dev
 ```
 
+## Print data representation in the terminal
+
+```bash
+mongo myproject --eval 'db.users.find().pretty()'
+```
+
 # Resources
 
 - https://create-react-app.dev/docs/proxying-api-requests-in-development
@@ -41,3 +51,5 @@ npm run dev
 - https://reactjs.org/docs/context.html
 - https://stackabuse.com/redirects-in-react-router/
 - https://www.youtube.com/watch?v=_HdrLsyAdJg
+- https://stackoverflow.com/a/14713363/1714951
+- https://www.mongodb.com/docs/manual/tutorial/write-scripts-for-the-mongo-shell/#std-label-mongo-shell-scripting
