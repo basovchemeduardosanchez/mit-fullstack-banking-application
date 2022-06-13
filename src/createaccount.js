@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { UserContext, Card } from './context';
 
 export function CreateAccount(){
@@ -9,7 +10,8 @@ export function CreateAccount(){
     const [password, setPassword] = useState('');
     const [isCreateAccountEnabled, setIsCreateAccountEnabled] = useState( false );
 
-    const ctx = useContext(UserContext);  
+    const history = useHistory();
+    const ctx = useContext(UserContext);
 
     function validate(field, label){
         if (!field) {
@@ -20,20 +22,30 @@ export function CreateAccount(){
         return true;
     }
 
-    function handleCreate(){
+    async function handleCreate(){
         console.log(name,email,password);
         if (!validate(name,     'name'))     return;
         if (!validate(email,    'email'))    return;
         if (!validate(password, 'password')) return;
-        ctx.users.push({name,email,password,balance:100});
-        setShow(false);
-    }
+        //ctx.users.push({name,email,password,balance:100});
 
-    function clearForm(){
-        setName('');
-        setEmail('');
-        setPassword('');
-        setShow(true);
+        await fetch( `/account/create/${ encodeURIComponent( name ) }/${ encodeURIComponent( email ) }/${ encodeURI( password ) }` )
+            .then( response => {
+                if ( !response.ok ) {
+                    response.text()
+                        .then( text => {
+                            setStatus('Error: ' + text);
+                            setTimeout(() => setStatus(''),3000);
+                        } );
+                    return;
+                }
+                response.json()
+                    .then( json => {
+                        setShow(false);
+                        ctx.setCurrentUser( json );
+                        history.push( '/login/' );
+                    } );
+            } );
     }
 
     return (
@@ -54,7 +66,6 @@ export function CreateAccount(){
             ):(
                 <>
                     <h5>Success</h5>
-                    <button type="submit" className="btn btn-light" onClick={clearForm}>Add another account</button>
                 </>
             )}
         />
