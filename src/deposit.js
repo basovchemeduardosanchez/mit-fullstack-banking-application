@@ -5,7 +5,6 @@ export function Deposit(){
     const context = useContext(UserContext);
     const [ status, setStatus ] = useState( '' );
     const [ isDepositing, setIsDepositing ] = useState( false );
-    const [ balance, setBalance ] = useState( context.users[0].balance );
     const [ amount, setAmount ] = useState( '' );
     const [ isDepositEnabled, setIsDepositEnabled ] = useState( false );
 
@@ -14,6 +13,8 @@ export function Deposit(){
     }
 
     function handleDeposit(){
+        if ( !context.currentUser ) return;
+
         setStatus( '' );
         if ( !isAmountValid() ) {
             setStatus( 'Error: The amount is invalid' );
@@ -21,11 +22,23 @@ export function Deposit(){
             return;
         }
 
-        const newBalance = balance + parseFloat( amount );
-        context.users[0].balance = newBalance;
-        setAmount( '' );
-        setBalance( newBalance );
-        setIsDepositing( true );
+        fetch( `/account/update/${ encodeURIComponent( context.currentUser.email ) }/${ encodeURIComponent( parseFloat( amount ) ) }` )
+            .then( response => {
+                if ( !response.ok ) {
+                    response.text()
+                        .then( text => {
+                            setStatus( 'Error: ' + text );
+                            setTimeout(() => setStatus(''),3000);
+                        } );
+                    return;
+                }
+                response.json()
+                    .then( json => {
+                        setAmount( '' );
+                        setIsDepositing( true );
+                        context.setCurrentUser( json.value );
+                    } );
+            } );
     }
     function handleAmountChange( pEvent ){
         const newAmount = pEvent.currentTarget.value;
@@ -42,13 +55,13 @@ export function Deposit(){
                 body={ isDepositing ? (
                     <>
                         Success!<br/><br/>
-                        New balance: <span style={ { fontWeight: 'bold' } }>{balance}</span><br/><br/>
+                        New balance: <span style={ { fontWeight: 'bold' } }>{context.currentUser.balance}</span><br/><br/>
                         <button className='btn btn-primary' type='button' onClick={() => setIsDepositing( false )}>Deposit again</button>
                     </>
                 ) : (
                     <>
                         <div className='form-group'>
-                            Balance: <span style={ { fontWeight: 'bold' } }>{balance}</span><br/>
+                            Balance: <span style={ { fontWeight: 'bold' } }>{context.currentUser.balance}</span><br/>
                         </div>
                         <div className='form-group'>
                             <label htmlFor="amount">Deposit Amount</label>
