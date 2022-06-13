@@ -1,17 +1,53 @@
 {
-  "name": "littledb",
-  "version": "1.0.0",
-  "description": "lowdb sample for 1.125",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "abel@mit.edu",
-  "license": "MIT",
+  "name": "mit-fullstack-banking-application",
+  "homepage": "https://basovchemeduardosanchez.github.io/mit-fullstack-banking-application",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://0.0.0.0:3001",
   "dependencies": {
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "lowdb": "^1.0.0",
-    "mongodb": "^3.6.2"
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongodb": "^4.7.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.2.1",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "dev": "concurrently \"nodemon index.js\" \"BROWSER=none react-scripts start\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1",
+    "eslint": "^8.11.0",
+    "eslint-plugin-react": "^7.29.4",
+    "nodemon": "^2.0.16"
   }
 }
