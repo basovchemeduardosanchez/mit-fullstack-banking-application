@@ -21,32 +21,36 @@ export function NavBar(){
                         <li className="nav-item" title="The home page of the application">
                             <a className={ `nav-link ${ location.pathname === '/' ? 'active' : '' }` } href="#/">Home</a>
                         </li>
-                        <li className="nav-item" title="A page to create accounts in the application">
-                            <a className={ `nav-link ${ location.pathname === '/CreateAccount/' ? 'active' : '' }` } href="#/CreateAccount/">Create Account</a>
-                        </li>
-                        <li className="nav-item" title="A page to deposit in the first account's balance">
-                            <a className={ `nav-link ${ location.pathname === '/deposit/' ? 'active' : '' }` } href="#/deposit/">Deposit</a>
-                        </li>
-                        <li className="nav-item" title="A page to withdraw from the first account's balance">
-                            <a className={ `nav-link ${ location.pathname === '/withdraw/' ? 'active' : '' }` } href="#/withdraw/">Withdraw</a>
-                        </li>
-                        { /*<li className="nav-item" title="A page to see the first account's current balance">
-                            <a className={ `nav-link ${ location.pathname === '/balance/' ? 'active' : '' }` } href="#/balance/">Balance</a>
-                        </li>*/ }
                         <li className="nav-item" title="A page to see al data stored in the application">
                             <a className={ `nav-link ${ location.pathname === '/alldata/' ? 'active' : '' }` } href="#/alldata/">AllData</a>
                         </li>
                         { ctx.currentUser ? (
-                            <li className="nav-item" title="Sign out of the application">
-                                <a className="nav-link" onClick={() => {
-                                    ctx.setCurrentUser(null);
-                                    history.push( '/logout/' );
-                                }}>Logout</a>
-                            </li>
+                            <>
+                                <li className="nav-item" title="A page to deposit in the first account's balance">
+                                    <a className={ `nav-link ${ location.pathname === '/deposit/' ? 'active' : '' }` } href="#/deposit/">Deposit</a>
+                                </li>
+                                <li className="nav-item" title="A page to withdraw from the first account's balance">
+                                    <a className={ `nav-link ${ location.pathname === '/withdraw/' ? 'active' : '' }` } href="#/withdraw/">Withdraw</a>
+                                </li>
+                                { /*<li className="nav-item" title="A page to see the first account's current balance">
+                                    <a className={ `nav-link ${ location.pathname === '/balance/' ? 'active' : '' }` } href="#/balance/">Balance</a>
+                                </li>*/ }
+                                <li className="nav-item" title="Sign out of the application">
+                                    <a className="nav-link" onClick={() => {
+                                        ctx.setCurrentUser(null);
+                                        history.push( '/logout/' );
+                                    }}>Logout</a>
+                                </li>
+                            </>
                         ) : (
-                            <li className="nav-item" title="A page to login into the application">
-                                <a className={ `nav-link ${ location.pathname === '/login/' ? 'active' : '' }` } href="#/login/">Login</a>
-                            </li>
+                            <>
+                                <li className="nav-item" title="A page to create accounts in the application">
+                                    <a className={ `nav-link ${ location.pathname === '/CreateAccount/' ? 'active' : '' }` } href="#/CreateAccount/">Create Account</a>
+                                </li>
+                                <li className="nav-item" title="A page to login into the application">
+                                    <a className={ `nav-link ${ location.pathname === '/login/' ? 'active' : '' }` } href="#/login/">Login</a>
+                                </li>
+                            </>
                         ) }
                     </ul>
                 </div>
