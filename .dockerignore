@@ -1,0 +1,9 @@
+.vscode
+build
+node_modules
+images
+.dockerignore
+.eslintrc.cjs
+.gitignore
+mongo_test.js
+README.md

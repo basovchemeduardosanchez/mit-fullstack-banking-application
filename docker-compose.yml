@@ -1,0 +1,12 @@
+services:
+  db:
+    image: mongo
+    restart: always
+  web:
+    build: .
+    image: mit-fullstack-banking-application
+    ports:
+      - "3001:3001"
+    links:
+      - db
+    restart: always

@@ -21,6 +21,12 @@
   "scripts": {
     "start": "node index.js",
     "dev": "concurrently \"nodemon index.js\" \"BROWSER=none react-scripts start\"",
+    "docker:build": "docker build -t mit-fullstack-banking-application --progress=plain .",
+    "docker:start": "docker compose up --force-recreate --build --detach",
+    "docker:log": "docker compose logs -f",
+    "docker:stop": "docker compose down",
+    "docker:remove": "docker compose rm -svf",
+    "postdocker:start": "npm run docker:log",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
