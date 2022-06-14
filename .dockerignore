@@ -7,3 +7,4 @@ images
 .gitignore
 mongo_test.js
 README.md
+.env
