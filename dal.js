@@ -2,7 +2,7 @@
 
 const MongoClient = require('mongodb').MongoClient;
 // When running in docker the hostname is going to be set to the name of the service in the docker-compose file (db)
-const url         = `mongodb://${ process.env[ 'NODE_ENV' ] === 'production' ? 'db' : '0.0.0.0' }:27017`;
+const url         = process.env[ 'MONGODB_URI' ] || `mongodb://${ process.env[ 'NODE_ENV' ] === 'production' ? 'db' : '0.0.0.0' }:27017`;
 let db            = null;
  
 // connect to mongo
