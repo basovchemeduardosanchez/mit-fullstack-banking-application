@@ -1,7 +1,12 @@
 services:
   db:
+    # See: https://hub.docker.com/_/mongo
+    # If mongo is started without passing any environment variables, then no
+    # authentication is setup. THIS IS NOT SECURE
     image: mongo
     restart: always
+    # Not exposing the ports on purpose so that the db is only accessible from
+    # the web service
   web:
     build: .
     image: mit-fullstack-banking-application
