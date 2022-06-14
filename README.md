@@ -34,8 +34,16 @@
 
 ## Run
 
+To run locally, execute:
+
 ```bash
 npm run dev
+```
+
+To run inside docker, execute:
+
+```bash
+npm run docker:start
 ```
 
 ## Print data representation in the terminal
