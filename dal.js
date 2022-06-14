@@ -1,11 +1,13 @@
 // Data Access Layer
 
 const MongoClient = require('mongodb').MongoClient;
-const url         = 'mongodb://localhost:27017';
+// When running in docker the hostname is going to be set to the name of the service in the docker-compose file (db)
+const url         = `mongodb://${ process.env[ 'NODE_ENV' ] === 'production' ? 'db' : '0.0.0.0' }:27017`;
 let db            = null;
  
 // connect to mongo
 MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
+    if ( err ) throw err;
     console.log('Connected successfully to db server');
 
     // connect to myproject database
