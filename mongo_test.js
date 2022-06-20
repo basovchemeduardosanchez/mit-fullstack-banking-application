@@ -3,7 +3,7 @@ const url = 'mongodb://localhost:27017';
  
 // connect to mongo
 MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
-  console.log("Connected successfully to server");
+    console.log('Connected successfully to server');
 
     // database Name
     const dbName = 'myproject';
@@ -16,10 +16,12 @@ MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
     // insert into customer table
     var collection = db.collection('customers');
     var doc = {name, email};
+    // eslint-disable-next-line no-unused-vars
     collection.insertOne(doc, {w:1}, function(err, result) {
         console.log('Document insert');
     });
 
+    // eslint-disable-next-line no-unused-vars
     var customers = db
         .collection('customers')
         .find()
@@ -27,7 +29,7 @@ MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
             console.log('Collection:',docs);
 
             // clean up
-            client.close();            
-    });    
+            client.close();
+        });
 
 });
