@@ -14,7 +14,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 # Every RUN command in the docker file creates a layer, all layers are cached and as a good practice
 # we should separate the image on layers that will be rarely changed, so that next image builds take
-# advantage on the cached layers.
+# advantage on the cached layers. Note that if a previous layer is changed, the next ones will be
+# re-built again so the Dockerfile RUN commands should be sorted by the least changing layers first
 #
 # In this case we're caching the package installation so that next builds only execute the next RUN
 # commands
